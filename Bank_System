@@ -1,4 +1,4 @@
-/// project Bank management system
+// project Bank management system
 
 #include <iostream>
 #include <vector>
@@ -32,13 +32,27 @@ class BankManagement{
         void AddAccount(string name, int accountNum, double balance){
             accounts.push_back(BankAccount(name, accountNum, balance));
         }
+        void showAllAccount(){
+            cout<<"\t\t All Account Holders "<<endl;   
+            for(int i = 0; i < accounts.size(); i++){
+                cout<<"Name :"<<accounts[i].getName()<<" Account Number :"<<accounts[i].getAccountNum()<<" Balance :"<<accounts[i].getBalance()<<endl;
+            }
+    }
+        void searchAccount(int account){
+            cout<<"\t\tAccount Holder"<<endl;
+            for(int i =0; i < accounts.size(); i++){
+                if(accounts[i].getAccountNum() == account){
+                   cout<<"\t\tName :"<<accounts[i].getName()<<" Account Number :"<<accounts[i].getAccountNum()<<" Balance :"<<accounts[i].getBalance()<<endl; 
+                }
+            }
+        }
 };
 int main(){
     BankManagement Bank;
     int choice;
     char op;
    do{
-               system("cls"); 
+               system("cls");
                  cout<<"\t\t:: Bank Management System"<<endl;
                  cout<<"\t\t\t\tMain Menu"<<endl;
                  cout<<"\t\t 1. Creat New Account"<<endl;
@@ -52,7 +66,7 @@ int main(){
                   cin>>choice;
       
       switch(choice){
-          case 1:
+          case 1:{
                 string name;
                 int accountnum;
                 double balance;
@@ -65,8 +79,16 @@ int main(){
                 Bank.AddAccount(name, accountnum, balance);
                 cout<<"\t\t.....Account Created Successfully....."<<endl;
                 break;
-          
-          
+          }
+           case 2:
+                Bank.showAllAccount();
+                break;
+            case 3:
+                int accountNum;
+                cout<<"\t\tEnter Account Number :";
+                cin>>accountNum;
+                Bank.searchAccount(accountNum);
+                break;
       }
       cout<<"\t\t Do you Want to Continue or exit [Yes/No] ??";
       cin>>op;

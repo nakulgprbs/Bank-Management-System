@@ -1,4 +1,4 @@
-// project Bank management system
+/// project Bank management system
 
 #include <iostream>
 #include <vector>
@@ -21,8 +21,20 @@ class BankAccount{
     int getAccountNum(){
         return accountNum;
     }
-    int getBalance(){
+   double getBalance(){
         return balance;
+    }
+    void deposit(double amount){
+        balance = balance + amount;
+    } 
+    void withdraw(double amount){
+        if(balance >= amount){
+            balance = balance - amount;
+            cout<<"\t\tWithdraw Successfully....."<<endl;
+        }
+        else{
+            cout<<"\t\tInsufficient Balance....."<<endl;
+        }
     }
 };
 class BankManagement{
@@ -46,6 +58,14 @@ class BankManagement{
                 }
             }
         }
+       BankAccount* findAccount(int accountNum){
+           for(int i =0; i< accounts.size(); i++){
+               if(accounts[i].getAccountNum() == accountNum){
+                   return &accounts[i];
+               }
+           }
+           return nullptr;
+       } 
 };
 int main(){
     BankManagement Bank;
@@ -89,6 +109,45 @@ int main(){
                 cin>>accountNum;
                 Bank.searchAccount(accountNum);
                 break;
+            case 4: {
+                int accountNum;
+                double amount;
+                cout<<"\t\tEnter Account Number to Deposite Money :";
+                cin>>accountNum;
+                BankAccount* account = Bank.findAccount(accountNum);
+                if(account != NULL){
+                    cout<<"\t\tEnter Amount to Deposit :";
+                    cin>>amount;
+                    account->deposit(amount);
+                    cout<<"\t\t"<<amount<<" Deposite Successfully....."<<endl;
+                }
+                else{
+                    cout<<"\t\tAccount Not Found....."<<endl;
+                }
+                break;
+            }
+            case 5:
+                {
+                int accountNum;
+                double amount;
+                cout<<"\t\tEnter Account Number to Withdraw Money :";
+                cin>>accountNum;
+                BankAccount* account = Bank.findAccount(accountNum);
+                if(account != NULL){
+                    cout<<"\t\tEnter Amount to Withdraw :";
+                    cin>>amount;
+                    account->withdraw(amount);
+                    cout<<"\t\t"<<amount<<" Withdraw Successfully....."<<endl;
+                }
+                else{
+                    cout<<"\t\tAccount Not Found....."<<endl;
+                }
+            break;
+            }
+            case 6:{
+                exit(1);
+                break;
+            }
       }
       cout<<"\t\t Do you Want to Continue or exit [Yes/No] ??";
       cin>>op;
